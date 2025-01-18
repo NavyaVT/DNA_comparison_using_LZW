@@ -3,7 +3,10 @@ import streamlit as st
 import copy
 
 def data_load(file):
-    dna_data = file.read().decode('utf-8').replace('\n', '')
+    #dna_data = file.read().decode('utf-8').replace('\n', '')
+    dna_data = pd.read_csv(file, sep='\t', engine='python')
+    dna_data['sequence'] = dna_data['sequence'].str.replace('\n', '', regex=False)
+    dna_data=dna_data["sequence"].to_string()
     return dna_data
 
 def initialize_dict(sequence):
